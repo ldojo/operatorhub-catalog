@@ -26,9 +26,7 @@ parameters:
   name: "POST_CATALOG_CREATION_SCRIPT"
   required: true
   value: >-
-                curl -k -u admin:password -T
-                operatorhub.tar.gz
-                http://yourdomain/artifactory/operator-catalog-manifests/operatorhub.tar.gz
+             curl -k -u admin:password -T "https://ear-demo.apps.ocp.lshulmanrh.com/artifactory/generic-local/operatorhub.tar.gz"
 - description: "name for mirrors.json file as ConfigMap for mirroring the catalog images"
   name: "MIRROR_CONFIG_MAP_NAME"
   required: false

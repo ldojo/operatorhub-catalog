@@ -35,18 +35,18 @@
     stages {
         stage(&apos;Build Catalog tar.gz&apos;) {
             steps {
-                sh &quot;export CATALOG_NAME=${env.CATALOG_NAME}; create-catalog.sh;&quot;     
+                sh &quot;export CATALOG_NAME=${env.CATALOG_NAME}; create-catalog.sh;&quot;
             }
         }
-        stage(&apos;Mirroring&apos;){
-            steps {
-                sh &quot;curl -X POST \&quot;http://operator-catalog-utils:8080/applyImageMirrors\&quot; -H \&quot;accept: */*\&quot; -H \&quot;Content-Type: multipart/form-data\&quot; -F \&quot;json-mirrors-file=@/var/jenkins_home/mirroring/mirrors.json\&quot; -F \&quot;package-manifest-file=@${env.CATALOG_NAME}.tar.gz\&quot; &gt; ${env.CATALOG_NAME}-mirrored.tar.gz; ls -lht; mv ${env.CATALOG_NAME}-mirrored.tar.gz ${env.CATALOG_NAME}.tar.gz &quot;
-                sh &quot;cp ${env.CATALOG_NAME}.tar.gz ${env.JENKINS_HOME}/operatorhub/&quot;
-            }
-        }
+//        stage(&apos;Mirroring&apos;){
+//            steps {
+//                sh &quot;curl -X POST \&quot;http://operator-catalog-utils:8080/applyImageMirrors\&quot; -H \&quot;accept: */*\&quot; -H \&quot;Content-Type: multipart/form-data\&quot; -F \&quot;json-mirrors-file=@/var/jenkins_home/mirroring/mirrors.json\&quot; -F \&quot;package-manifest-file=@${env.CATALOG_NAME}.tar.gz\&quot; &gt; ${env.CATALOG_NAME}-mirrored.tar.gz; ls -lht; mv ${env.CATALOG_NAME}-mirrored.tar.gz ${env.CATALOG_NAME}.tar.gz &quot;
+//                sh &quot;cp ${env.CATALOG_NAME}.tar.gz ${env.JENKINS_HOME}/operatorhub/&quot;
+//            }
+//        }
         stage(&apos;Post build action&apos;){
             steps {
-               sh &quot;${env.POST_CATALOG_CREATION_SCRIPT}&quot; 
+               sh &quot;${env.POST_CATALOG_CREATION_SCRIPT}&quot;
 
             }
         }
